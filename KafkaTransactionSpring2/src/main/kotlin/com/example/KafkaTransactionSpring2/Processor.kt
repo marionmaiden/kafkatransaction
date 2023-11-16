@@ -20,7 +20,7 @@ class Processor {
 
         System.err.println("PROCESSING ${s}")
         val sent = streamBridge.send("eventListener-out-0", s.uppercase())
-        System.err.println("SENT ${sent}")
+        System.err.println("SENT ${sent}, IsDelay ${configuration.isDelay()}, IsException ${configuration.isException()}")
 
         when {
             configuration.isDelay() -> {
