@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    function:
+      definition: eventListener
+    stream:
+      kafka:
+        binder:
+          transaction:
+            transaction-id-prefix: "TRANSACTION_ID_${random.uuid}"
+          producer-properties:
+            transaction.timeout.ms: 20000
+
+      binders:
+        kafka:
+          type: kafka
+          environment:
+            spring.kafka:
+              bootstrap-servers: "localhost:9099"
+              producer:
+                acks: all
+                client-id: "mySpringBinder"
+      bindings:
+        eventListener-in-0:
+          destination: "inputTopic"
+          group: "inputGroup"
+        eventListener-out-0:
+          destination: "outputTopic"
+
+
+
+logging.level.root: WARN
+logging.level.org.apache.kafka: WARN
